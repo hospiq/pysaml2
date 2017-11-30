@@ -3,8 +3,8 @@ import os
 from base64 import b64encode
 from base64 import b64decode
 
-from Cryptodome import Random
-from Cryptodome.Cipher import AES
+from Crypto import Random
+from Crypto.Cipher import AES
 
 __author__ = 'rolandh'
 

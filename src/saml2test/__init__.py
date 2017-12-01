@@ -5,7 +5,6 @@ import requests
 import sys
 import socket
 
-from subprocess import Popen, PIPE
 from saml2test.check import CRITICAL
 
 logger = logging.getLogger(__name__)
@@ -47,6 +46,8 @@ class ContextFilter(logging.Filter):
 
 
 def start_script(path, *args):
+    from subprocess import Popen, PIPE
+
     popen_args = [path]
     popen_args.extend(args)
     return Popen(popen_args, stdout=PIPE, stderr=PIPE)

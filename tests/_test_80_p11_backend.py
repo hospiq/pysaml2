@@ -13,7 +13,6 @@ __author__ = 'leifj'  # based on p11_test from pyXMLSecurity
 import logging
 import os
 import traceback
-import subprocess
 import tempfile
 import pytest
 from pathutils import full_path
@@ -173,6 +172,8 @@ class TestPKCS11():
         return f.name
 
     def _p(self, args):
+        import subprocess
+
         env = {}
         if self.softhsm_conf is not None:
             env['SOFTHSM_CONF'] = self.softhsm_conf

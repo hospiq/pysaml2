@@ -28,8 +28,6 @@ from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography.x509 import load_pem_x509_certificate
 
 from tempfile import NamedTemporaryFile
-from subprocess import Popen
-from subprocess import PIPE
 
 from saml2 import samlp
 from saml2 import SamlBase
@@ -785,6 +783,8 @@ class CryptoBackendXmlSec1(CryptoBackend):
             pass
 
     def version(self):
+        from subprocess import Popen, PIPE
+
         com_list = [self.xmlsec, "--version"]
         pof = Popen(com_list, stderr=PIPE, stdout=PIPE)
         content = pof.stdout.read().decode('ascii')
@@ -971,6 +971,9 @@ class CryptoBackendXmlSec1(CryptoBackend):
         :param exception: The exception class to raise on errors
         :result: Whatever xmlsec wrote to an --output temporary file
         """
+
+        from subprocess import Popen, PIPE
+
         ntf = NamedTemporaryFile(suffix=".xml",
                                  delete=self._xmlsec_delete_tmpfiles)
         com_list.extend(["--output", ntf.name])

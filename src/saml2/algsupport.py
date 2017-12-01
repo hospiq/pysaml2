@@ -1,4 +1,3 @@
-from subprocess import Popen, PIPE
 from saml2.sigver import get_xmlsec_binary
 from saml2.extension.algsupport import SigningMethod
 from saml2.extension.algsupport import DigestMethod
@@ -34,6 +33,7 @@ SIGNING_METHODS = {
 
 
 def get_algorithm_support(xmlsec):
+    from subprocess import Popen, PIPE
     com_list = [xmlsec, '--list-transforms']
     pof = Popen(com_list, stderr=PIPE, stdout=PIPE)
 

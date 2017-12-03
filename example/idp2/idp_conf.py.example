@@ -10,15 +10,15 @@ from saml2.saml import NAMEID_FORMAT_PERSISTENT
 import os.path
 import saml2.xmldsig as ds
 
-try:
-    from saml2.sigver import get_xmlsec_binary
-except ImportError:
-    get_xmlsec_binary = None
-
-if get_xmlsec_binary:
-    xmlsec_path = get_xmlsec_binary(["/opt/local/bin"])
-else:
-    xmlsec_path = '/usr/bin/xmlsec1'
+# try:
+#     from saml2.sigver import get_xmlsec_binary
+# except ImportError:
+#     get_xmlsec_binary = None
+#
+# if get_xmlsec_binary:
+#     xmlsec_path = get_xmlsec_binary(["/opt/local/bin"])
+# else:
+#     xmlsec_path = '/usr/bin/xmlsec1'
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -107,7 +107,9 @@ CONFIG = {
             },
             "subject_data": "./idp.subject",
             "name_id_format": [NAMEID_FORMAT_TRANSIENT,
-                               NAMEID_FORMAT_PERSISTENT]
+                               NAMEID_FORMAT_PERSISTENT],
+            "sign_response": True,
+            "sign_assertion": True,
         },
     },
     "debug": 1,
@@ -135,7 +137,8 @@ CONFIG = {
     ],
     # This database holds the map between a subject's local identifier and
     # the identifier returned to a SP
-    "xmlsec_binary": xmlsec_path,
+    "crypto_backend": "XMLSecurity",
+    # "xmlsec_binary": xmlsec_path,
     #"attribute_map_dir": "../attributemaps",
     "logger": {
         "rotating": {
